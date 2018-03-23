@@ -114,14 +114,23 @@ class toutiao:
             else:
                 sys.exit()
 
+    def run_one(self, url):
+
+        self.create_lolfile()  # 创建文件夹
+
+        print('爬取url为：'+url+'图片集\n')
+
+        soup = self.request(url)
+
+        imageList = self.getImageUrl(soup)
+
+        self.get_image(imageList, soup)
+
     def run(self):
 
         self.create_lolfile()  # 创建文件夹
 
-        #头条图片请求url
-        # url = 'https://www.toutiao.com/a6508983959630643725'
-        # url = 'https://www.toutiao.com/a6503660292721869326'
-        # url = 'https://www.toutiao.com/a6517447853151879684'
+
         imageUrls = []
         imageUrls = self.set_image_url(imageUrls)
 
@@ -130,7 +139,7 @@ class toutiao:
         for k in range(imageUrllength):
             url = imageUrls[k]
 
-            print('爬取url为：'+url+'图片集\n')
+            print('爬取url为：' + url + '图片集\n')
 
             soup = self.request(url)
 
@@ -142,4 +151,10 @@ class toutiao:
 if __name__ == '__main__':
     getImage = toutiao()  # 创建对象
 
-    getImage.run()  # 运行爬虫
+    # 头条图片请求url
+    url = 'https://www.toutiao.com/a6508983959630643725'
+    # url = 'https://www.toutiao.com/a6503660292721869326'
+    # url = 'https://www.toutiao.com/a6517447853151879684'
+    getImage.run_one(url)  # 运行爬虫 爬取一个图片集
+
+    # getImage.run()  # 运行爬虫 爬取多个个图片集
